@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAVSMÅL - IKEA Sushi</title>
+    <style>
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ikea-blue: #0051BA;
+            --ikea-yellow: #FFDB00;
+            --dark-bg: #1a1a1a;
+            --text-dark: #111111;
+            --text-light: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray-medium: #929292;
+        }
+
+        body {
+            font-family: 'Noto IKEA', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ==================== ATOMIC DESIGN: ATOMS ==================== */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--text-dark);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn-secondary {
+            background: var(--text-light);
+            color: var(--text-dark);
+            border: 2px solid var(--text-dark);
+        }
+
+        .heading-xl {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .heading-lg {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .heading-md {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .text-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .text-small {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ==================== ATOMIC DESIGN: MOLECULES ==================== */
+        .logo {
+            width: 60px;
+            height: 25px;
+            background: var(--ikea-blue);
+            color: var(--ikea-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: 4px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--text-light);
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .card {
+            background: var(--text-light);
+            border-radius: 0;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        /* ==================== ATOMIC DESIGN: ORGANISMS ==================== */
+        .header {
+            background: var(--text-light);
+            padding: 12px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .hero {
+            position: relative;
+            background: var(--text-light);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 16px;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .hero-text {
+            max-width: 500px;
+        }
+
+        .hero-image {
+            width: 100%;
+            border-radius: 0;
+        }
+
+        .yellow-banner {
+            background: var(--ikea-yellow);
+            padding: 32px 16px;
+        }
+
+        .yellow-banner-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        .section {
+            padding: 48px 16px;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid-3 {
+            display: grid;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .blue-section {
+            background: var(--ikea-blue);
+            color: var(--text-light);
+            padding: 48px 16px;
+        }
+
+        .blue-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        .product-cards {
+            display: grid;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .product-card {
+            background: var(--ikea-blue);
+            color: var(--text-light);
+            padding: 32px 24px;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .product-card h3 {
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .product-card p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .circle-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+        }
+
+        .lifestyle-section {
+            display: grid;
+            gap: 0;
+        }
+
+        .lifestyle-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .lifestyle-text {
+            background: var(--ikea-yellow);
+            padding: 48px 24px;
+        }
+
+        .footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 48px 16px 24px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-column h4 {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 24px;
+            font-size: 12px;
+            color: var(--gray-medium);
+        }
+
+        /* ==================== RESPONSIVE BREAKPOINTS ==================== */
+        
+        /* Mobile First: 320px - 767px (default styles above) */
+        
+        /* Tablet: 768px - 1023px */
+        @media (min-width: 768px) {
+            .heading-xl {
+                font-size: 36px;
+            }
+
+            .heading-lg {
+                font-size: 28px;
+            }
+
+            .heading-md {
+                font-size: 24px;
+            }
+
+            .text-body {
+                font-size: 16px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                gap: 32px;
+            }
+
+            .yellow-banner-content {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                gap: 32px;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+
+            .blue-content {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .product-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+
+            .lifestyle-section {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+
+            .section {
+                padding: 64px 24px;
+            }
+
+            .blue-section {
+                padding: 64px 24px;
+            }
+        }
+
+        /* Desktop: 1024px+ */
+        @media (min-width: 1024px) {
+            .heading-xl {
+                font-size: 48px;
+            }
+
+            .heading-lg {
+                font-size: 32px;
+            }
+
+            .heading-md {
+                font-size: 28px;
+            }
+
+            .hero-content {
+                padding: 64px 24px;
+            }
+
+            .hero-grid {
+                gap: 48px;
+            }
+
+            .yellow-banner {
+                padding: 64px 24px;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+            }
+
+            .product-cards {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+            }
+
+            .lifestyle-image {
+                height: 500px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 48px;
+            }
+
+            .section {
+                padding: 80px 32px;
+            }
+
+            .blue-section {
+                padding: 80px 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">IKEA</div>
+            <div class="header-icons">
+                <div class="icon-btn">👤</div>
+                <div class="icon-btn">🛒</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1 class="heading-xl">Willkommen bei HAVSMÅL von IKEA</h1>
+                    <p class="text-body">Entdecke unsere neue Sushi-Kollektion HAVSMÅL. Frische Zutaten, authentischer Geschmack und skandinavisches Design vereint. Perfekt für dein Zuhause – vom Anfänger bis zum Sushi-Meister.</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop" alt="Sushi Zutaten" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- YELLOW BANNER -->
+    <section class="yellow-banner">
+        <div class="yellow-banner-content">
+            <div>
+                <h2 class="heading-lg">Für alle, die's individuell mögen</h2>
+                <p class="text-body">Mit HAVSMÅL kannst du deine eigenen Sushi-Kreationen zu Hause zubereiten. Wähle aus unserer Auswahl an frischen Zutaten, hochwertigen Werkzeugen und praktischen Sets. Egal ob du gerade erst anfängst oder bereits Erfahrung hast – bei uns findest du alles für dein perfektes Sushi-Erlebnis.</p>
+                <a href="#" class="btn btn-primary">Sortiment ansehen</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1617196034883-49d49fa450cd?w=800&h=600&fit=crop" alt="Sushi auf Bambusmatte" class="hero-image">
+        </div>
+    </section>
+
+    <!-- SO EINFACH GEHT ES -->
+    <section class="section">
+        <div class="section-container">
+            <h2 class="heading-lg">So einfach geht es</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&h=450&fit=crop" alt="Form wählen" class="card-image">
+                    <div class="card-content">
+                        <h3 class="heading-md">Form wählen</h3>
+                        <p class="text-body">Entdecke verschiedene Sushi-Formen und wähle deinen Favoriten.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&h=450&fit=crop" alt="Reis auswählen" class="card-image">
+                    <div class="card-content">
+                        <h3 class="heading-md">Reis auswählen</h3>
+                        <p class="text-body">Wähle zwischen verschiedenen Premium-Reissorten für perfektes Sushi.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=600&h=450&fit=crop" alt="Füllung & Topping" class="card-image">
+                    <div class="card-content">
+                        <h3 class="heading-md">Füllung & Topping</h3>
+                        <p class="text-body">Kombiniere frische Zutaten nach deinem Geschmack – sei kreativ!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLUE SECTION - LOKAL PRODUZIERT -->
+    <section class="blue-section">
+        <div class="blue-content">
+            <div>
+                <h2 class="heading-lg">Lokal produziert – frisch & fair</h2>
+                <p class="text-body">Alle unsere Fischprodukte stammen aus nachhaltiger, lokaler Fischerei. Wir arbeiten eng mit Fischern aus der Region zusammen, um dir die frischesten Zutaten in höchster Qualität zu garantieren. Gut für dich, gut für die Umwelt.</p>
+                <a href="#" class="btn btn-secondary">Mehr über Nachhaltigkeit</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=800&h=600&fit=crop" alt="Frischer Fisch" class="hero-image">
+        </div>
+    </section>
+
+    <!-- KEINE ZEIT? -->
+    <section class="section">
+        <div class="section-container">
+            <h2 class="heading-lg">Keine Zeit? – Dann greif zur Sushi-Box!</h2>
+            <p class="text-body" style="margin-bottom: 32px;">Unsere fertigen Sushi-Boxen sind die perfekte Lösung für alle, die wenig Zeit haben aber nicht auf Qualität verzichten möchten. Frisch zubereitet, lecker und praktisch verpackt.</p>
+            
+            <div class="product-cards">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600&h=450&fit=crop" alt="Classic Box" style="width: 100%; border-radius: 0;">
+                    <div class="product-card" style="position: static; margin-top: -80px; margin-left: 0; margin-right: 0;">
+                        <h3 class="heading-md">Classic Box</h3>
+                        <p class="text-body">Die zeitlose Auswahl mit den beliebtesten Sushi-Sorten. Perfekt für Einsteiger und Klassik-Liebhaber.</p>
+                        <div class="circle-btn">→</div>
+                    </div>
+                </div>
+
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&h=450&fit=crop" alt="Vegan Box" style="width: 100%; border-radius: 0;">
+                    <div class="product-card" style="position: static; margin-top: -80px; margin-left: 0; margin-right: 0;">
+                        <h3 class="heading-md">Vegan Box</h3>
+                        <p class="text-body">100% pflanzlich, 100% lecker. Kreative vegane Kreationen mit frischem Gemüse und innovativen Zutaten.</p>
+                        <div class="circle-btn">→</div>
+                    </div>
+                </div>
+
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1617196034796-ca2c1eb8a7da?w=600&h=450&fit=crop" alt="Mix Box" style="width: 100%; border-radius: 0;">
+                    <div class="product-card" style="position: static; margin-top: -80px; margin-left: 0; margin-right: 0;">
+                        <h3 class="heading-md">Mix Box</h3>
+                        <p class="text-body">Das Beste aus allen Welten. Eine bunte Mischung für alle, die Abwechslung lieben.</p>
+                        <div class="circle-btn">→</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIFESTYLE SECTION -->
+    <section class="lifestyle-section">
+        <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=800&fit=crop" alt="Menschen essen Sushi" class="lifestyle-image">
+        <div class="lifestyle-text">
+            <h2 class="heading-lg">Leben ist besser Appetit gemeinsam</h2>
+            <p class="text-body" style="margin-bottom: 24px;">Sushi verbindet Menschen. Ob mit Familie, Freunden oder Kollegen – gemeinsam schmeckt es einfach besser. Entdecke unsere Sets für gesellige Abende und besondere Momente.</p>
+            <a href="#" class="btn btn-primary">Jetzt entdecken</a>
+            <a href="#" class="btn btn-secondary" style="margin-left: 12px;">Sets ansehen</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>IKEA Family</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Mitglied werden</a></li>
+                        <li><a href="#">Vorteile entdecken</a></li>
+                        <li><a href="#">Family Angebote</a></li>
+                        <li><a href="#">Member Shop</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services & Infos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Planung</a></li>
+                        <li><a href="#">Lieferung</a></li>
+                        <li><a href="#">Montage</a></li>
+                        <li><a href="#">Finanzierung</a></li>
+                        <li><a href="#">Garantie</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Hilfe & Kontakt</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Kontakt</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Rückgabe & Reklamation</a></li>
+                        <li><a href="#">Produktrückrufe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Über IKEA</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Das IKEA Konzept</a></li>
+                        <li><a href="#">Nachhaltigkeit</a></li>
+                        <li><a href="#">Karriere</a></li>
+                        <li><a href="#">Newsroom</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Inter IKEA Systems B.V. 1999-2025 | Datenschutz | Cookie-Richtlinie | Nutzungsbedingungen | Impressum</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
