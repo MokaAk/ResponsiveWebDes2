@@ -34,6 +34,11 @@
             display: block;
         }
 
+         video {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
         /* ==================== ATOMIC DESIGN: ATOMS ==================== */
         .btn {
             display: inline-block;
@@ -202,13 +207,20 @@
             gap: 24px;
         }
 
+        .section-white {
+            
+            padding: 32px 16px;
+        }
+
         .section {
-            padding: 48px 16px;
+            padding: 32px 16px;
         }
 
         .section-container {
             max-width: 1400px;
             margin: 0 auto;
+            display: grid;
+            gap: 24px;
         }
 
         .grid-3 {
@@ -392,6 +404,13 @@
                 padding: 64px 24px;
             }
 
+            .section-container {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                gap: 40px;
+                
+            }
+
             .blue-section {
                 padding: 64px 24px;
             }
@@ -400,7 +419,9 @@
         /* Desktop: 1024px+ */
         @media (min-width: 1024px) {
             .heading-xl {
-                font-size: 48px;
+                font-size: 70px;
+                line-height: 0.9;
+                
             }
 
             .heading-lg {
@@ -446,6 +467,7 @@
                 padding: 80px 32px;
             }
 
+
             .blue-section {
                 padding: 80px 32px;
             }
@@ -472,7 +494,8 @@
                     <h1 class="heading-xl">Willkommen bei HAVSMÅL von IKEA</h1>
                     <p class="text-body">Entdecke unsere neue Sushi-Kollektion HAVSMÅL. Frische Zutaten, authentischer Geschmack und skandinavisches Design vereint. Perfekt für dein Zuhause – vom Anfänger bis zum Sushi-Meister.</p>
                 </div>
-                <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop" alt="Sushi Zutaten" class="hero-image">
+                <video loop autoplay src="Videos/IKEA_SUSHI.mp4" width="100%"></video>
+                <!--<img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop" alt="Sushi Zutaten" class="hero-image"> -->
             </div>
         </div>
     </section>
@@ -482,10 +505,10 @@
         <div class="yellow-banner-content">
             <div>
                 <h2 class="heading-lg">Für alle, die's individuell mögen</h2>
-                <p class="text-body">Mit HAVSMÅL kannst du deine eigenen Sushi-Kreationen zu Hause zubereiten. Wähle aus unserer Auswahl an frischen Zutaten, hochwertigen Werkzeugen und praktischen Sets. Egal ob du gerade erst anfängst oder bereits Erfahrung hast – bei uns findest du alles für dein perfektes Sushi-Erlebnis.</p>
+                <p class="text-body">Mit HAVSMÅL kannst du deine eigenen Sushi-Kreationen zu Hause zubereiten. Wähle aus unserer Auswahl an frischen Zutaten, hochwertigen Werkzeugen und praktischen Sets. Egal ob du gerade erst anfängst oder bereits Erfahrung hast, bei uns findest du alles für dein perfektes Sushi-Erlebnis.</p>
                 <a href="#" class="btn btn-primary">Sortiment ansehen</a>
             </div>
-            <img src="https://images.unsplash.com/photo-1617196034883-49d49fa450cd?w=800&h=600&fit=crop" alt="Sushi auf Bambusmatte" class="hero-image">
+            <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop" alt="Sushi auf Bambusmatte" class="hero-image">
         </div>
     </section>
 
@@ -523,7 +546,7 @@
     <section class="blue-section">
         <div class="blue-content">
             <div>
-                <h2 class="heading-lg">Lokal produziert – frisch & fair</h2>
+                <h2 class="heading-lg">Lokal produziert: frisch & fair</h2>
                 <p class="text-body">Alle unsere Fischprodukte stammen aus nachhaltiger, lokaler Fischerei. Wir arbeiten eng mit Fischern aus der Region zusammen, um dir die frischesten Zutaten in höchster Qualität zu garantieren. Gut für dich, gut für die Umwelt.</p>
                 <a href="#" class="btn btn-secondary">Mehr über Nachhaltigkeit</a>
             </div>
@@ -532,11 +555,18 @@
     </section>
 
     <!-- KEINE ZEIT? -->
-    <section class="section">
+    <section class="section-white">
         <div class="section-container">
-            <h2 class="heading-lg">Keine Zeit? – Dann greif zur Sushi-Box!</h2>
-            <p class="text-body" style="margin-bottom: 32px;">Unsere fertigen Sushi-Boxen sind die perfekte Lösung für alle, die wenig Zeit haben aber nicht auf Qualität verzichten möchten. Frisch zubereitet, lecker und praktisch verpackt.</p>
-            
+            <div>
+                <h2 class="heading-lg">Keine Zeit? Dann greif zur Sushi-Box!</h2>
+                <p class="text-body" style="margin-bottom: 32px;">Unsere fertigen Sushi-Boxen sind die perfekte Lösung für alle, die wenig Zeit haben aber nicht auf Qualität verzichten möchten. Frisch zubereitet, lecker und praktisch verpackt.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=800&h=600&fit=crop" alt="Frischer Fisch" class="hero-image">
+        </div> 
+    </section>
+
+    <section class="section">
+
             <div class="product-cards">
                 <div style="position: relative;">
                     <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600&h=450&fit=crop" alt="Classic Box" style="width: 100%; border-radius: 0;">
@@ -557,7 +587,7 @@
                 </div>
 
                 <div style="position: relative;">
-                    <img src="https://images.unsplash.com/photo-1617196034796-ca2c1eb8a7da?w=600&h=450&fit=crop" alt="Mix Box" style="width: 100%; border-radius: 0;">
+                    <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop" alt="Mix Box" style="width: 100%; border-radius: 0;">
                     <div class="product-card" style="position: static; margin-top: -80px; margin-left: 0; margin-right: 0;">
                         <h3 class="heading-md">Mix Box</h3>
                         <p class="text-body">Das Beste aus allen Welten. Eine bunte Mischung für alle, die Abwechslung lieben.</p>
@@ -565,7 +595,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
     </section>
 
     <!-- LIFESTYLE SECTION -->
@@ -625,6 +655,7 @@
                 <p>© Inter IKEA Systems B.V. 1999-2025 | Datenschutz | Cookie-Richtlinie | Nutzungsbedingungen | Impressum</p>
             </div>
         </div>
-    </footer>
+    </footer> 
+    
 </body>
 </html>
