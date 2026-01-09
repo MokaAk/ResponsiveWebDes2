@@ -9,7 +9,7 @@
             --ikea-blue: #0051BA;
             --ikea-yellow: #FFDB00;
             --dark-bg: #1a1a1a;
-            --text-dark: #111111;
+            --text-dark: #171717;
             --text-light: #ffffff;
             --gray-light: #f5f5f5;
             --gray-medium: #929292;
@@ -25,11 +25,11 @@
             max-width: 100%;
             height: auto;
             display: block;
-            border-radius: 10px;
+           /* border-radius: 10px;*/
         }
 
          video {
-            border-radius: 10px;
+            /*border-radius: 10px;*/
             overflow: hidden;
         }
 /* ==================== ATOMIC DESIGN: ATOMS ==================== */
@@ -86,8 +86,50 @@
          .hero-grid {
             display: grid;
             gap: 24px;
+            background: var(--gray-light);
         } 
 
         .hero-text {
-            max-width: 500px;
+            max-width:400px;
+            padding: 30px;
+            font-size: 15px;
         }
+
+        .heading-xl {
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+
+        .yellow-banner{
+           position: relative;
+           
+        }
+
+        .yellow-banner-container{
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 16px; /* padding um den Container- weise fläche*/
+        }
+
+        .yellow-grid{
+            display:grid;  
+            gap: 24px; /* platz zwischen bild und text */
+            background: var(--ikea-yellow);
+        }
+
+        .yellow-text{
+            max-width: 400px;
+            padding: 30px;
+            font-size: 15px;
+        }
+
+        .yellow-text{
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+
+
+
+

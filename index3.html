@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Landing Page Grid</title>
+
+  <style>
+    /* ===== Mobile-first: NO grid yet (just readable padding) ===== */
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; }
+
+    .page {
+      padding: 16px; /* mobile breathing room */
+    }
+
+    /* Demo content structure (no styling beyond spacing) */
+    .hero { padding: 24px 0; }
+    .hero-media { min-height: 180px; background: #ddd; }
+    .hero-content { padding-top: 12px; }
+
+    /* ===== One breakpoint: switch to desktop grid ===== */
+    @media (min-width: 900px) {
+      
+
+      /* By default, sections should sit inside the 3 main columns */
+      .hero {
+        display: grid;
+
+      /* SAME column structure as .page */
+      grid-template-columns:
+        minmax(24px, 1fr)
+        repeat(3, minmax(0, 450px))
+        minmax(24px, 1fr);
+
+      column-gap: 20px;
+      }
+
+      /* Hero layout using the SAME page grid: 2/1 split */
+      .hero-media {
+        grid-column: 2 / 4; /* takes 2 columns (col1+col2) */
+        height: 350px;
+        overflow: hidden;
+        
+      }
+
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero-content {
+        grid-column: 4 / 5; /* takes 1 column (col3) */
+        padding-top: 0;
+      }
+
+      /* ===== Debug overlay: vertical guidelines =====
+         Shows: outer edges + the 3 column boundaries inside the main area.
+      */
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        /* Build a 5-column overlay grid that matches .page */
+        display: grid;
+        grid-template-columns:
+          minmax(24px, 1fr)
+          repeat(3, minmax(0, 450px))
+          minmax(24px, 1fr);
+        column-gap: 20px;
+
+        /* Draw lines */
+        background:
+          linear-gradient(#0000, #0000); /* placeholder layer */
+        opacity: 0.25;
+      }
+
+      /* We draw the lines using an extra overlay element */
+      .grid-debug {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        display: grid;
+        grid-template-columns:
+          minmax(24px, 1fr)
+          repeat(3, minmax(0, 450px))
+          minmax(24px, 1fr);
+        column-gap: 20px;
+
+        opacity: 0.25;
+      }
+
+      .grid-debug > div {
+        border-left: 1px solid rgba(0,0,0,.6);
+        border-right: 1px solid rgba(0,0,0,.6);
+      }
+
+      /* Only show borders around the 3 main columns area
+         (tracks 2,3,4 are the main columns) */
+      .grid-debug > div:nth-child(1),
+      .grid-debug > div:nth-child(5) {
+        border-left: 0;
+        border-right: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page1">
+    <!-- Debug overlay (only becomes visible at desktop breakpoint) -->
+    <div class="grid-debug" aria-hidden="true">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
+    <!-- Example hero -->
+    <section class="hero">
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop" alt="Sushi auf Bambusmatte">
+      </div>
+
+      <div class="hero-content">
+        <h1>Headline</h1>
+        <p>Short value proposition goes here.</p>
+        <div>
+          <a href="#">Primary CTA</a>
+          <a href="#">Secondary CTA</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

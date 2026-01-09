@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Landing Page Grid</title>
+
+  <style>
+    /* ===== Mobile-first ===== */
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; }
+
+    .page {
+      padding: 16px; /* mobile breathing room */
+    }
+
+    .hero { padding: 24px 0; }
+    .hero-media { min-height: 180px; background: #ddd; }
+    .hero-content { padding-top: 12px; }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== One breakpoint: desktop grid ===== */
+    @media (min-width: 900px) {
+      /* Global grid for the whole page */
+      .page {
+        display: grid;
+
+        /* 5 columns: free | col1 | col2 | col3 | free */
+        grid-template-columns:
+          minmax(24px, 1fr)
+          repeat(3, minmax(0, 450px))
+          minmax(24px, 1fr);
+
+        column-gap: 20px;
+
+        /* remove mobile padding; grid free-space handles it */
+        padding: 0;
+
+        /* needed so the debug overlay can be positioned */
+        position: relative;
+      }
+
+      /* Place the HERO’s children directly on the page grid */
+      .hero {
+        grid-column: 1 / -1; /* hero section spans full grid width (including free space) */
+        display: contents;   /* IMPORTANT: makes .hero-media and .hero-content become grid items */
+      }
+
+      .hero-media {
+        grid-column: 2 / 4; /* ONLY columns 2 and 3 */
+        height: 350px;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        grid-column: 4 / 5; /* ONLY column 4 */
+        padding-top: 0;
+        background-color: #ddd;
+        /* Needed for the gap-extension pseudo element */
+        position: relative;
+      }
+      
+
+      /* ===== Debug overlay: visible vertical guidelines across the whole page ===== */
+      .grid-debug {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        display: grid;
+        grid-template-columns:
+          minmax(24px, 1fr)
+          repeat(3, minmax(0, 450px))
+          minmax(24px, 1fr);
+        column-gap: 20px;
+
+        opacity: 0.25;
+      }
+
+      .grid-debug > div {
+        border-left: 1px solid rgba(0,0,0,.6);
+        border-right: 1px solid rgba(0,0,0,.6);
+      }
+
+      .grid-debug > div:nth-child(1),
+      .grid-debug > div:nth-child(5) {
+        border-left: 0;
+        border-right: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="grid-debug" aria-hidden="true">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop"
+             alt="Sushi auf Bambusmatte">
+      </div>
+
+      <div class="hero-content">
+        <h1>Headline</h1>
+        <p>Short value proposition goes here.</p>
+        <div>
+          <a href="#">Primary CTA</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
