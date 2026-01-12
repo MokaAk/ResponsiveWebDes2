@@ -690,7 +690,7 @@ button:focus-visible{
   transition: color .2s ease;
 }
 
-.footer-links a:hover{ color: var(--ikea-yellow); }
+.footer-links a:hover{ color: var(--ikea-blue); }
 
 .footer-bottom{
   padding-top: 22px;
