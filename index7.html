@@ -6,329 +6,411 @@
   <title>HAVSMÅL - IKEA Sushi</title>
 
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; }
+   
 
-    :root { --grid-gap: 20px; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #111;
+  background: #fff;
+}
 
-    /* ===== Mobile-first ===== */
-    .page { padding: 16px; }
+/* Farben wie in deinem Layout */
+:root{
+  --grid-gap: 20px;
+  --col-max: 450px;
 
-    /* General spacing between ANY sections (mobile) */
-    .page > section { padding: 16px 0; }
+  --ikea-blue: #0058a3;
+  --ikea-yellow: #ffdb00;
+  --ikea-black: #111;
+  --line: rgba(0,0,0,.12);
 
-    .hero-media { min-height: 180px; background: #ddd; overflow: hidden; }
-    .hero-content { padding-top: 12px; background: #ddd; }
+  /* Weißraum zwischen Sektionen (wie im Design) */
+  --section-pad-mobile: 28px;
+  --section-pad-desktop: 44px;
+}
 
-    .hero-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
 
-    .split-left { background: #ddd; padding: 16px; }
-    .split-right { background: #ccc; padding: 16px; }
+/* Standard-Abstände sauber kontrollieren */
+h1, h2, h3, p { margin: 0; }
+img { display: block; }
+a { color: inherit; text-decoration: none; }
 
-    .feature img {
-      width: 100%;
-      display: block;
-    }
+/* =========================
+   HEADER (sticky, grid-aligned 2..4)
+   ========================= */
+.header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-    .feature {
-      margin-bottom: 32px; /* mobile spacing between cards */
-    }
+.header-container{
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 
-    /* Debug overlay hidden on mobile */
-    .grid-debug { display: none; }
+.header-logo-crop{
+  width: 44px;
+  height: 44px;
+  display: block;
+}
 
-    /* ===== CAROUSEL ===== */
-    .carousel-section {
-      overflow: hidden;
-    }
+.header-icon{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .carousel-container {
-      position: relative;
-    }
+.header-icon svg{
+  width: 24px;
+  height: 24px;
+  display: block;
+}
 
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+/* =========================
+   PAGE / SECTIONS
+   ========================= */
+.page{
+  padding: 16px;
+}
 
-    .carousel-item {
-      flex: 0 0 100%;
-      transition: opacity 0.5s ease;
-    }
+/* Weißraum zwischen Sektionen (global) */
+.page > section{
+  padding: var(--section-pad-mobile) 0;
+}
 
-    .carousel-item img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-    }
+/* =========================
+   HERO (Bild links 2/4, Text rechts 4/5)
+   ========================= */
+.hero-media{
+  min-height: 220px;
+  overflow: hidden;
+  background: #ddd;
+}
 
-    .carousel-text {
-      padding: 20px;
-      color: white;
-      min-height: 120px;
-      height: 300px;
-    }
+.hero-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .carousel-text h3 {
-      margin: 0 0 8px 0;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
+/* Textblock: wie in deinem Design (flache Fläche, keine Rundungen) */
+.hero-content{
+  background: #fff;
+  padding: 16px;
+  border: 0;
+}
 
-    .carousel-text p {
-      margin: 0;
-      font-size: 0.95rem;
-      opacity: 0.95;
-    }
+.hero:nth-of-type(2) .hero-content,
+.hero:nth-of-type(7) .hero-content{
+  background: var(--ikea-yellow);
+}
 
-    .carousel-controls {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 24px;
-      padding: 0 16px;
-    }
+/* Typo grob wie im Mock */
+.hero-content h1{
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
 
-    .carousel-btn {
-      background: none;
-      border: 1px solid #111;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
+.hero-content p{
+  font-size: 14px;
+  line-height: 1.45;
+}
 
-    .carousel-btn:hover {
-      background: #111;
-      color: white;
-    }
+/* CTA Buttons: in deinem Design eher „Pills“, du willst aber keine Abrundungen */
+.hero-content a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--ikea-black);
+  background: #fff;
+  color: #111;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 12px;
+}
 
-    .carousel-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+/* wenn mehrere Links nebeneinander */
+.hero-content a + a { margin-left: 10px; }
 
-    .carousel-progress {
-      flex: 1;
-      height: 4px;
-      background: #dfdfdf;
-      border-radius: 2px;
-      overflow: hidden;
-    }
+/* Primärbutton schwarz */
+.hero-content a:first-child{
+  background: var(--ikea-black);
+  color: #fff;
+}
 
-    .carousel-progress-bar {
-      height: 100%;
-      background: #111;
-      width: 0;
-      transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+/* =========================
+   SPLIT (Blau links + Bild rechts, ohne Zwischenraum)
+   ========================= */
+.split-inner{
+  display: grid;
+  gap: 0; /* KEIN Spalt zwischen den beiden Flächen */
+}
 
-    /* ===== HEADER ===== */
-    .header {
-      padding: 16px;
-      border-bottom: 1px solid rgba(0,0,0,.12);
-      background: #fff;
+.split-left{
+  background: var(--ikea-blue);
+  color: #fff;
+  padding: 16px;
+}
 
-      /* sticky */
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+.split-left h1{
+  font-size: 22px;
+  line-height: 1.12;
+  margin-bottom: 10px;
+}
 
-    .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
+.split-left p{
+  font-size: 14px;
+  line-height: 1.45;
+  margin-bottom: 12px;
+  color: rgba(255,255,255,.95);
+}
 
-    .header-logo-crop {
-      width: 40px;
-      height: 40px;
-      display: block;
-    }
+/* Button im blauen Block: weiß, eckig */
+.split-left a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #fff;
+  background: #fff;
+  color: #111;
+  font-size: 13px;
+  font-weight: 600;
+}
 
-    .header-icon {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+.split-right{
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+}
 
-    .header-icon svg {
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
+.split-right img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* füllt exakt */
+}
 
-    /* ===== One breakpoint: desktop grid ===== */
-    @media (min-width: 900px) {
-      /* Header aligned to page grid (content from column 2 to 5) */
-      .header {
-        padding: 0; /* grid handles horizontal spacing */
-      }
+/* =========================
+   FEATURES (3 Bilder + Text drunter)
+   -> KEIN vertikaler Abstand zwischen Bild und Text
+   ========================= */
+.feature{
+  margin: 0; /* keine Extra-Lücken zwischen Items (Spacing kommt von Section-Padding) */
+}
 
-      .header-container {
-        display: grid;
-        grid-template-columns:
-          minmax(24px, 1fr)
-          repeat(3, minmax(0, 450px))
-          minmax(24px, 1fr);
-        column-gap: var(--grid-gap);
-        align-items: center;
+.feature img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
 
-        height: 72px;
-        max-width: none;
-        margin: 0;
-      }
+/* Wichtig: kein Margin/Padding-top -> kein „Spalt“ */
+.feature p{
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 700;
+  /* Wenn du links minimal Einzug willst wie im Mock, nimm:
+     padding-left: 0;  (aktuell 0, also wirklich direkt)
+  */
+}
 
-      .header-logo {
-        grid-column: 2 / 3;   /* left edge of column 2 */
-        justify-self: start;
-      }
+/* =========================
+   CAROUSEL (dein Track + Cards)
+   ========================= */
+.carousel-section{ overflow: hidden; }
 
-      .header-icon {
-        grid-column: 4 / 5;   /* right edge of column 4 */
-        justify-self: end;
-      }
+.carousel-track{
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-      .page {
-        display: grid;
-        grid-template-columns:
-          minmax(24px, 1fr)
-          repeat(3, minmax(0, 450px))
-          minmax(24px, 1fr);
-        column-gap: var(--grid-gap);
+.carousel-item{
+  flex: 0 0 100%;
+  overflow: hidden;
+}
 
-        padding: 0;
-        position: relative; /* for debug overlay */
-      }
+/* Bild oben – direkt Text darunter: KEIN gap */
+.carousel-item img{
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
 
-      /* 🔥 IMPORTANT: sections must span the whole page grid */
-      .page > section {
-        grid-column: 1 / -1;
-        padding: 20px 0;
+/* Textblock: direkt an Bild, ohne Innenabstand oben/unten erzwingen wir NICHT,
+   aber du willst „kein freier Platz“ – daher padding 16 nur seitlich/unten? -> 0.
+   Wenn du doch Lesbarkeit willst: padding: 16px; (wäre aber „Platz“).
+*/
+.carousel-text{
+  padding: 16px;
+  color: #fff;
+  min-height: 300px;
+}
 
-        display: grid;
-        grid-template-columns:
-          minmax(24px, 1fr)
-          repeat(3, minmax(0, 450px))
-          minmax(24px, 1fr);
-        column-gap: var(--grid-gap);
-      }
+/* Headline & Text ohne externe Abstände */
+.carousel-text h3{
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 8px 0; /* das ist innerhalb des Textblocks, nicht zwischen Bild/Text */
+}
 
-      /* Hero layout */
-      .hero-media {
-        grid-column: 2 / 4; /* columns 2 + 3 */
-        height: 350px;
-      }
+.carousel-text p{
+  font-size: 13px;
+  line-height: 1.45;
+}
 
-      .hero-content {
-        grid-column: 4 / 5; /* column 4 */
-        padding-top: 0;
+/* Controls (lassen wir funktional, clean) */
+.carousel-controls{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 0;
+}
 
-        background: #ddd;
-        position: relative;
-        align-self: stretch;
-        z-index: 1;
-      }
+.carousel-btn{
+  background: #fff;
+  border: 1px solid var(--ikea-black);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
 
-      /* ✅ Color the GAP between columns 3 and 4 (extend LEFT) */
-      .hero-content::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: calc(-1 * var(--grid-gap));
-        width: var(--grid-gap);
-        background: #ddd;
-      }
+.carousel-progress{
+  flex: 1;
+  height: 4px;
+  background: #dfdfdf;
+  overflow: hidden;
+}
 
-      /* Split layout */
-      .split-inner {
-        grid-column: 2 / 5; /* span the 3 main columns */
-        display: grid;
-        grid-template-columns: 1.5fr 1.5fr;
-      }
+.carousel-progress-bar{
+  height: 100%;
+  background: var(--ikea-black);
+  width: 0;
+  transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-      .split-right {
-        background: #ccc;
-        padding: 0;              /* important: remove padding */
-        overflow: hidden;        /* crops overflowing image */
-        height: 350px;
-      }
+/* =========================
+   DESKTOP GRID (1 Breakpoint)
+   ========================= */
+@media (min-width: 900px){
 
-      .split-right img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;       /* fills box, keeps aspect ratio */
-        display: block;
-    }
+  /* Header exakt auf Grid */
+  .header-container{
+    padding: 0;
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+    align-items: center;
+    height: 72px;
+  }
 
-      /* Three layout */
-      .features > .feature:nth-child(1) { grid-column: 2; }
-      .features > .feature:nth-child(2) { grid-column: 3; }
-      .features > .feature:nth-child(3) { grid-column: 4; }
+  .header-logo{ grid-column: 2 / 3; justify-self: start; }
+  .header-icon{ grid-column: 4 / 5; justify-self: end; }
 
-      .feature { margin-bottom: 0; } /* desktop spacing handled by section padding */
+  /* Page Grid */
+  .page{
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+    padding: 0;
+    position: relative;
+  }
 
-      /* Carousel desktop */
-      .carousel-container {
-        grid-column: 2 / 5;
-        overflow: hidden;
-      }
+  /* Jede Section spannt über volle Breite, Inhalt nutzt gleiches Grid */
+  .page > section{
+    grid-column: 1 / -1;
+    padding: var(--section-pad-desktop) 0;
 
-      .carousel-track {
-        display: flex;
-        gap: var(--grid-gap);
-      }
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+  }
 
-      .carousel-item {
-        flex: 0 0 calc((100% - (2 * var(--grid-gap))) / 3);
-      }
+  /* HERO */
+  .hero-media{
+    grid-column: 2 / 4;
+    height: 350px;
+  }
 
-      .carousel-item img {
-        height: 300px;
-      }
+  .hero-content{
+    grid-column: 4 / 5;
+    padding: 16px;
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+  }
 
-      /* ===== Debug overlay ===== */
-      .grid-debug {
-        display: grid;
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 9999;
+  /* Gap zwischen Spalte 3 und 4 einfärben (wie du es wolltest) */
+  .hero-content::before{
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: calc(-1 * var(--grid-gap));
+    width: var(--grid-gap);
+    background: inherit;
+  }
 
-        grid-template-columns:
-          minmax(24px, 1fr)
-          repeat(3, minmax(0, 450px))
-          minmax(24px, 1fr);
-        column-gap: var(--grid-gap);
+  /* SPLIT */
+  .split-inner{
+    grid-column: 2 / 5;
+    grid-template-columns: 1.5fr 1.5fr;
+    gap: 0; /* tight */
+  }
 
-        opacity: 0.25;
-      }
+  .split-right{
+    height: 350px;
+  }
 
-      .grid-debug > div {
-        border-left: 1px solid rgba(0,0,0,.6);
-        border-right: 1px solid rgba(0,0,0,.6);
-      }
+  /* FEATURES: 3 Spalten */
+  .features > .feature:nth-child(1){ grid-column: 2; }
+  .features > .feature:nth-child(2){ grid-column: 3; }
+  .features > .feature:nth-child(3){ grid-column: 4; }
 
-      .grid-debug > div:nth-child(1),
-      .grid-debug > div:nth-child(5) {
-        border-left: 0;
-        border-right: 0;
-      }
-    }
+  /* Carousel Desktop: 3 Items sichtbar */
+  .carousel-container{
+    grid-column: 2 / 5;
+    overflow: hidden;
+  }
+
+  .carousel-track{
+    gap: var(--grid-gap);
+  }
+
+  .carousel-item{
+    flex: 0 0 calc((100% - (2 * var(--grid-gap))) / 3);
+  }
+
+  .carousel-item img{
+    height: 300px;
+  }
+}
+
+    
+
+
   </style>
 </head>
 

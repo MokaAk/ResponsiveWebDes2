@@ -1,0 +1,731 @@
+/* =========================================================
+   HAVSMÅL – FULL CSS (mobile-first, 1 breakpoint)
+   CLEAN + IKEA-ish
+   ✅ Mobile split rule: IMAGE first, then TEXT (works with your HTML: .split-left then .split-right)
+   ✅ First hero video: no grey background on mobile (white/black handling)
+   ✅ No video hover zoom
+   ✅ Split hover stays stable (white split + yellow split)
+   ✅ Carousel spacing IKEA-ish + arrow link
+   ✅ Features typography IKEA-ish (but responsive)
+   ✅ Footer aligned to same grid (starts at column 2 on desktop)
+   ✅ Secondary hero button (e.g. "Zu den Boxen") no black outline
+   ========================================================= */
+
+/* ---------- Reset / Baseline ---------- */
+*{ box-sizing: border-box; }
+html, body{ margin: 0; padding: 0; }
+img, video{ display: block; }
+h1,h2,h3,p{ margin: 0; }
+a{ color: inherit; text-decoration: none; }
+
+/* ---------- Variables ---------- */
+:root{
+  --grid-gap: 20px;
+  --col-max: 450px;
+
+  --ikea-blue: #0058a3;
+  --ikea-yellow: #ffdb00;
+  --ikea-black: #111;
+  --line: rgba(0,0,0,.12);
+
+  --section-pad-mobile: 32px;
+  --section-pad-desktop: 44px;
+
+  --text: #111;
+  --muted: rgba(0,0,0,.72);
+
+  --h1-m: 32px;
+  --h1-d: 40px;
+
+  --body: 14px;
+  --body-d: 15px;
+
+  --lh: 1.55;
+  --lh-tight: 1.08;
+
+  --measure: 60ch;
+}
+
+body{
+  font-family: 'Noto IKEA', 'Noto Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: #fff;
+  font-size: var(--body);
+  line-height: var(--lh);
+}
+
+/* =========================
+   HEADER (sticky)
+   ========================= */
+.header{
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container{
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-logo-crop{ width: 44px; height: 44px; }
+
+.header-icon{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-icon svg{ width: 24px; height: 24px; }
+
+/* =========================
+   PAGE / SECTIONS
+   ========================= */
+.page{ padding: 16px; }
+.page > section{ padding: var(--section-pad-mobile) 0; }
+
+/* =========================
+   HERO (mobile stacked: media then content)
+   ========================= */
+.hero-media{
+  min-height: 240px;
+  overflow: hidden;
+  background: #fff; /* ✅ never grey behind media */
+}
+
+.hero-media img,
+.hero-media video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ✅ no grey on video: show black while loading */
+.hero-media video{
+  background: #000;
+}
+
+/* If first hero is the video: a bit taller */
+.hero:first-of-type .hero-media{ min-height: 260px; }
+
+.hero-content{
+  background: #fff;
+  padding: 28px 20px; /* IKEA-ish mobile padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero:nth-of-type(2) .hero-content,
+.hero:nth-of-type(7) .hero-content{
+  background: var(--ikea-yellow);
+}
+
+.hero-content h1{
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: var(--lh-tight);
+  font-size: var(--h1-m);
+  margin-bottom: 12px;
+}
+
+.hero-content p{
+  max-width: var(--measure);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: var(--lh);
+}
+
+/* CTA wrapper spacing (mobile) */
+.hero-content > div{ margin-top: 18px; }
+
+/* =========================
+   BUTTONS (IKEA pill)
+   ========================= */
+.hero-content a,
+.split-left a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;
+  padding: 0 16px;
+
+  border-radius: 999px;
+  border: 1px solid var(--ikea-black);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  background: #fff;
+  color: #111;
+}
+
+/* primary button = first link in hero */
+.hero-content a:first-child{
+  background: var(--ikea-black);
+  color: #fff;
+  border-color: var(--ikea-black);
+}
+
+/* spacing between hero buttons */
+.hero-content a + a{ margin-left: 10px; }
+
+/* ✅ secondary hero button (e.g. "Zu den Boxen") should NOT have black outline */
+.hero-content a:not(:first-child){
+  border-color: transparent;
+}
+
+/* =========================
+   FEATURES (mobile stack)
+   Typography closer to IKEA
+   ========================= */
+.features{
+  display: grid;
+  gap: 28px;
+}
+
+.feature{
+  display: grid;
+  gap: 0;
+}
+
+.feature img{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+}
+
+.feature h3{
+  margin-top: 16px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: #111;
+}
+
+.feature p{
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+/* =========================
+   SPLIT
+   ✅ Mobile rule: IMAGE first, then TEXT
+   (your HTML is: .split-left THEN .split-right)
+   ========================= */
+.split-inner{
+  display: flex;
+  flex-direction: column-reverse; /* ✅ image comes first on mobile */
+}
+
+.split-left{
+  background: var(--ikea-blue);
+  color: #fff;
+  padding: 24px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.split-left h1{
+  font-size: 28px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.split-left p{
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: rgba(255,255,255,.92);
+  max-width: 52ch;
+}
+
+/* push split CTA to bottom */
+.split-left a{ margin-top: auto; }
+
+/* default split button = white */
+.split-left a{
+  background: #fff;
+  color: #111;
+  border-color: #fff;
+}
+
+/* Yellow variant */
+.split--yellow .split-left{
+  background: var(--ikea-yellow);
+  color: #111;
+}
+.split--yellow .split-left p{ color: rgba(0,0,0,.75); }
+
+/* Yellow split button = black and must stay black on hover */
+.split--yellow .split-left a{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.split-right{
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.split-right img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+   CAROUSEL
+   - Keep image size same
+   - IKEA-ish text spacing
+   - Arrow link at bottom
+   ========================= */
+.carousel-section{ overflow: hidden; }
+
+.carousel-track{
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-item{
+  flex: 0 0 100%;
+  overflow: hidden;
+}
+
+.carousel-item img{
+  width: 100%;
+  height: 240px; /* ✅ keep your size */
+  object-fit: cover;
+}
+
+.carousel-text{
+  padding: 28px 20px 22px;
+  color: #fff;
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-text .kicker,
+.carousel-text span{
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: .95;
+}
+
+.carousel-text h3{
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 22px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.carousel-text p{
+  max-width: 48ch;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: .95;
+}
+
+/* Push text so arrow sits at bottom */
+.carousel-text p:last-of-type{ margin-bottom: auto; }
+
+/* add in HTML inside .carousel-text: <a class="carousel-link" href="#">→</a> */
+.carousel-link{
+  align-self: flex-start;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 22px;
+}
+
+.carousel-controls{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 0;
+  padding-top: 14px;
+  border-top: none; /* ✅ no weird grey line */
+}
+
+.carousel-btn{
+  background: #fff;
+  border: 1px solid var(--ikea-black);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.carousel-progress{
+  flex: 1;
+  height: 4px;
+  background: #dfdfdf;
+  overflow: hidden;
+}
+
+.carousel-progress-bar{
+  height: 100%;
+  background: var(--ikea-black);
+  width: 0;
+  transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* =========================
+   Micro-interactions
+   ✅ Images hover zoom, NOT video
+   ✅ Button hover keeps colors (no blue/white flip)
+   ========================= */
+@media (prefers-reduced-motion: no-preference){
+
+  /* Smooth hover for IMAGES only */
+  .hero-media img,
+  .split-right img,
+  .carousel-item img,
+  .feature img{
+    transition: transform .35s ease;
+  }
+
+  .hero-media:hover img,
+  .split-right:hover img,
+  .carousel-item:hover img,
+  .feature:hover img{
+    transform: scale(1.03);
+  }
+
+  /* Explicitly disable video scaling */
+  .hero-media video{
+    transition: none !important;
+    transform: none !important;
+  }
+  .hero-media:hover video{ transform: none !important; }
+
+  /* Buttons (movement only) */
+  .hero-content a,
+  .split-left a,
+  .carousel-btn,
+  .carousel-link{
+    transition: transform .15s ease, opacity .12s ease;
+  }
+
+  /* keep colors stable */
+  .hero-content a:hover,
+  .split-left a:hover,
+  .carousel-btn:hover{
+    transform: translateY(-1px);
+    opacity: .92;
+  }
+
+  .carousel-link:hover{
+    transform: translateX(2px);
+    opacity: 1;
+  }
+
+  /* ✅ lock split default button colors on hover */
+  .split-left a:hover{
+    background: #fff;
+    color: #111;
+    border-color: #fff;
+  }
+
+  /* ✅ lock yellow split button colors on hover */
+  .split--yellow .split-left a:hover{
+    background: #111;
+    color: #fff;
+    border-color: #111;
+  }
+
+  /* ✅ lock secondary hero button (no border) */
+  .hero-content a:not(:first-child):hover{
+    border-color: transparent;
+  }
+}
+
+/* Accessibility */
+a:focus-visible,
+button:focus-visible{
+  outline: 2px solid rgba(0,88,163,.6);
+  outline-offset: 2px;
+}
+
+/* =========================
+   BIG TEXT SECTION
+   (acts like spanning 2–4 "rows" by being taller)
+   ========================= */
+.big_text{
+  /* mobile */
+  padding: 64px 0;                 /* ~2 rows feel */
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.big_text h1{
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  margin: 0;
+}
+
+/* =========================
+   DESKTOP GRID (1 Breakpoint)
+   ========================= */
+@media (min-width: 900px){
+  body{ font-size: var(--body-d); }
+
+  /* Header aligned to grid */
+  .header-container{
+    padding: 0;
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+    align-items: center;
+    height: 72px;
+  }
+
+  .header-logo{ grid-column: 2 / 3; justify-self: start; }
+  .header-icon{ grid-column: 4 / 5; justify-self: end; }
+
+  /* Page grid */
+  .page{
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+    padding: 0;
+    position: relative;
+  }
+
+  /* Each section uses same 5-col grid */
+  .page > section{
+    grid-column: 1 / -1;
+    padding: var(--section-pad-desktop) 0;
+
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+  }
+
+  .big_text{
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+
+    padding: 120px 0;              /* ~4 rows feel */
+  }
+
+  .big_text h1{
+    grid-column: 2 / 5;
+  }
+
+  /* HERO: image left / text right */
+  .hero{ display: contents; }
+
+  .hero-media{
+    grid-column: 2 / 4;
+    height: 400px;
+    min-height: 0;
+  }
+
+  .hero-content{
+    grid-column: 4 / 5;
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+    padding: 32px 24px;
+  }
+
+  .hero-content h1{ font-size: var(--h1-d); }
+
+  /* Color the gap between col 3 & 4 */
+  .hero-content::before{
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: calc(-1 * var(--grid-gap));
+    width: var(--grid-gap);
+    background: inherit;
+  }
+
+  /* SPLIT: 50/50 grid on desktop */
+  .split-inner{
+    grid-column: 2 / 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .split-left{
+    padding: 64px 72px;
+    justify-content: center;
+  }
+
+  .split-left h1{
+    font-size: 44px;
+    line-height: 1.05;
+    margin-bottom: 18px;
+    max-width: 18ch;
+  }
+
+  .split-left p{
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 52ch;
+  }
+
+  .split-left a{
+    margin-top: 12px; /* not glued to bottom */
+    height: 44px;
+    padding: 0 22px;
+  }
+
+  /* FEATURES: place into columns 2/3/4 */
+  .features{ gap: 0; }
+
+  .features > .feature:nth-child(1){ grid-column: 2; }
+  .features > .feature:nth-child(2){ grid-column: 3; }
+  .features > .feature:nth-child(3){ grid-column: 4; }
+
+  .feature h3{ font-size: 28px; }
+  .feature p{ font-size: 15px; }
+
+  /* CAROUSEL */
+  .carousel-container{
+    grid-column: 2 / 5;
+    overflow: hidden;
+  }
+
+  .carousel-track{ gap: var(--grid-gap); }
+
+  .carousel-item{
+    flex: 0 0 calc((100% - (2 * var(--grid-gap))) / 3);
+  }
+
+  .carousel-item img{ height: 240px; } /* keep image size */
+}
+
+/* =========================
+   FOOTER (aligned to same grid)
+   ========================= */
+.footer{
+  background: #ddd;
+  color: #111;
+  padding: var(--section-pad-mobile) 0;
+}
+
+.footer a{ color: inherit; }
+
+.footer-container{
+  padding: 0 16px;
+}
+
+/* Mobile stacked */
+.footer-grid{
+  display: grid;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.footer-column h4{
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+
+.footer-links{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li{ margin-bottom: 8px; }
+
+.footer-links a{
+  font-size: 13px;
+  transition: color .2s ease;
+}
+
+.footer-links a:hover{ color: var(--ikea-yellow); }
+
+.footer-bottom{
+  padding-top: 22px;
+  border-top: 1px solid rgba(0,0,0,.25);
+}
+
+.footer-bottom p{
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+@media (min-width: 900px){
+  .footer{ padding: var(--section-pad-desktop) 0; }
+
+  .footer-container{
+    display: grid;
+    grid-template-columns:
+      minmax(24px, 1fr)
+      repeat(3, minmax(0, var(--col-max)))
+      minmax(24px, 1fr);
+    column-gap: var(--grid-gap);
+    padding: 0;
+  }
+
+  /* content starts at column 2 */
+  .footer-grid,
+  .footer-bottom{
+    grid-column: 2 / 5;
+  }
+
+  .footer-grid{
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--grid-gap);
+    margin-bottom: 48px;
+  }
+
+  .footer-links a{ font-size: 14px; }
+  .footer-bottom p{ font-size: 13px; }
+}
